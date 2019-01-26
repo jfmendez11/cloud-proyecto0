@@ -12,4 +12,4 @@ const EventsSchema = new Schema({
     presencial: {type: Boolean, require: true},
 });
 
-module.Exports = mongoose.model('Events', EventsSchema);
+module.exports = mongoose.model('Events', EventsSchema);
