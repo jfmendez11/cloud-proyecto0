@@ -44,6 +44,35 @@
 }
 
 #logo-img {
-  width: 50%;
-  height: 50%;
+  width: 30%;
+  height: 30%;
+}
+
+#events {
+  margin-top: 10px;
+}
+
+.pagination-a {
+  padding: 6px 12px 6px 12px;
+  border-style: solid;
+  border-color: #b9bdc0;
+  border-width: 1px 1px 1px 1px;
+  color: #f1212a;
+  margin: 1px;
+  border-radius: 5px;
+}
+
+.pagination {
+  margin-top: 16px;
+}
+
+.pagination-a:hover {
+  background-color: #000000;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.active-a {
+  background-color: #f1212a;
+  color: #000000;
 }

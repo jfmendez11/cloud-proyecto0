@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 class Events extends Component {
     render() {
+        let filteredEvents = this.props.events.filter((e, i) => i >= this.props.min && i <= this.props.max);
         return (
             <div className="justify-content-center align-self-center">
                 <table className="table table-bordered">
@@ -14,7 +15,7 @@ class Events extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                        {this.props.events.map((e,i) => {
+                        {filteredEvents.map((e,i) => {
                             return (
                             <tr key={e.nombre}>
                                 <td className="table-cell text-center">{e.fechaCreacion}</td>

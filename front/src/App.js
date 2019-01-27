@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Events from './Events.js';
 import Modal from 'react-modal';
+import Pagination from "react-js-pagination";
 
 const customStyles = {
   content : {
@@ -73,6 +74,9 @@ class App extends Component {
       fechaFin: '',
       presencial: true,
       currentIndex: -1,
+      activePage: 1,
+      min: 0,
+      max: 9,
     }
   }
 
@@ -328,6 +332,13 @@ class App extends Component {
     );
   }
 
+  handlePageChange(pageNumber) {
+    this.setState({activePage: pageNumber});
+    let max = pageNumber*10 - 1;
+    let min = (pageNumber-1)*10;
+    this.setState({min: min, max: max});
+  }
+
   render() {
     return (
       <div className="container text-center">
@@ -411,8 +422,19 @@ class App extends Component {
         <div className="row justify-content-center align-self-center">
           <button className="btn btn-format" onClick={this.openModalCreate.bind(this)}>Crear evento</button>
         </div>
+        <div className="row justify-content-center align-self-center" id="events">
+          <Events events={this.state.events} min={this.state.min} max={this.state.max} handleClick={this.handleClick.bind(this)}/>
+        </div>
         <div className="row justify-content-center align-self-center">
-          <Events events={this.state.events} handleClick={this.handleClick.bind(this)}/>
+          <Pagination
+            activePage={this.state.activePage}
+            itemsCountPerPage={10}
+            totalItemsCount={this.state.events.length}
+            pageRangeDisplayed={5}
+            onChange={this.handlePageChange.bind(this)}
+            linkClass="pagination-a"
+            activeLinkClass="active-a"
+          />
         </div>
       </div>
     );
