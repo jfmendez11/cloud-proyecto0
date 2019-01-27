@@ -27,6 +27,7 @@ module.exports = (app, express) => {
         event.fechaInicio = req.body.fechaInicio;
         event.fechaFin = req.body.fechaFin;
         event.presencial = req.body.presencial;
+        event.fechaCreacion = new Date().toLocaleDateString();
         
         event.save((err) => {
             if(err) return res.send(err);

@@ -10,6 +10,7 @@ const EventsSchema = new Schema({
     fechaInicio: {type: Date, require: true},
     fechaFin: {type: Date, require: true},
     presencial: {type: Boolean, require: true},
+    fechaCreacion: {type: Date, require: true},
 });
 
 module.exports = mongoose.model('Events', EventsSchema);
