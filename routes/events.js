@@ -14,7 +14,8 @@ module.exports = (app, express) => {
         Events.find({}, (err, events) => {
             if(err)res.send(err);
             res.send(events);
-        });
+        })
+        .sort({'fechaCreacion': -1});
     })
 
     //POST Crear un nuevo evento
@@ -27,7 +28,7 @@ module.exports = (app, express) => {
         event.fechaInicio = req.body.fechaInicio;
         event.fechaFin = req.body.fechaFin;
         event.presencial = req.body.presencial;
-        event.fechaCreacion = new Date().toLocaleDateString();
+        event.fechaCreacion = req.body.fechaCreacion;
         
         event.save((err) => {
             if(err) return res.send(err);

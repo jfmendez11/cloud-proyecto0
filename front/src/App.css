@@ -76,3 +76,10 @@
   background-color: #f1212a;
   color: #000000;
 }
+
+.log-reg {
+  border-style: solid;
+  border-color: #b9bdc0;
+  border-width: 1px 1px 1px 1px;
+  margin: 5px;
+}
