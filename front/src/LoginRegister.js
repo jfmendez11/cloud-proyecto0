@@ -105,6 +105,12 @@ class LoginRegister extends Component {
       password: this.state.passwordReg,
       passwordConf: this.state.passwordConf,
     };
+    console.log(user.email.split('@').length);
+    console.log(user.email.split('.'));
+    if(user.email.split('@').length !== 2 || user.email.split('.').length < 2) {
+      alert('Email inválido, ingrese un correo válido');
+      return;
+    }
     fetch('/users', {
         method: 'POST',
         body: JSON.stringify(user),
