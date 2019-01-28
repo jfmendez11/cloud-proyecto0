@@ -83,3 +83,21 @@
   border-width: 1px 1px 1px 1px;
   margin: 5px;
 }
+
+code {
+  color: #f1212a;
+  padding-top: 10px;
+  padding-right: 10px;
+}
+
+span {
+  padding-top: 5px;
+}
+
+.btn-link {
+  color: #000000;
+}
+
+.btn-link:hover {
+  color: #f1212a;
+}

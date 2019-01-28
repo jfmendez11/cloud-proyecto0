@@ -3,6 +3,7 @@ import './App.css';
 import RenderEvents from './RenderEvents.js';
 import Modal from 'react-modal';
 import Pagination from "react-js-pagination";
+import PropTypes from 'prop-types';
 
 const customStyles = {
   content : {
@@ -19,48 +20,6 @@ class Events extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      /*events: [
-        {
-          nombre: 'Evento 1',
-          categoria: 'Conferencia',
-          lugar: 'lugar 1',
-          direccion: 'direccion 1',
-          fechaInicio: new Date().toLocaleDateString(),
-          fechaFin: new Date().toLocaleDateString(),
-          presencial: true,
-          fechaCreacion: new Date().toLocaleDateString(),
-        },
-        {
-          nombre: 'Evento 2',
-          categoria: 'Seminario',
-          lugar: 'lugar 2',
-          direccion: 'direccion 2',
-          fechaInicio: new Date().toLocaleDateString(),
-          fechaFin: new Date().toLocaleDateString(),
-          presencial: false,
-          fechaCreacion: new Date().toLocaleDateString(),
-        },
-        {
-          nombre: 'Evento 3',
-          categoria: 'Congreso',
-          lugar: 'lugar 3',
-          direccion: 'direccion 3',
-          fechaInicio: new Date().toLocaleDateString(),
-          fechaFin: new Date().toLocaleDateString(),
-          presencial: true,
-          fechaCreacion: new Date().toLocaleDateString(),
-        },
-        {
-          nombre: 'Evento 4',
-          categoria: 'Curso',
-          lugar: 'lugar 4',
-          direccion: 'direccion 4',
-          fechaInicio: new Date().toLocaleDateString(),
-          fechaFin: new Date().toLocaleDateString(),
-          presencial: false,
-          fechaCreacion: new Date().toLocaleDateString(),
-        },
-      ],*/
       events: [],
       modalCreateIsOpen: false,
       modalDetailsIsOpen: false,
@@ -73,7 +32,6 @@ class Events extends Component {
       fechaInicio: '',
       fechaFin: '',
       presencial: true,
-      //currentIndex: -1,
       activePage: 1,
       min: 0,
       max: 9,
@@ -129,7 +87,6 @@ class Events extends Component {
       modalDetailsIsOpen: false,
       currentEvent:{},
       update: false, 
-      //currentIndex: -1,
     });
   }
 
@@ -181,6 +138,25 @@ class Events extends Component {
       fechaCreacion: new Date(),
       user: this.props.user._id,
     };
+    if(!this.state.nombre || !this.state.lugar || !this.state.direccion || !this.state.fechaInicio || !this.state.fechaFin) {
+      alert('Debe llenar todos los campos');
+      return;
+    }
+
+    let fechaInicio = Date.parse(this.state.fechaInicio);
+    let fechaFin = Date.parse(this.state.fechaFin);
+    let creacion = event.fechaCreacion.toLocaleDateString().split('/');
+    let fechaCreacion = Date.parse(creacion[2] + '-' + (creacion[1].length === 1 ? '0'+creacion[1]:creacion[1]) + '-' + creacion[0]);
+
+    if(fechaInicio > fechaFin) {
+      alert('La fecha de inicio debe ser antes de la fecha de finalización');
+      return;
+    }
+    
+    if(fechaCreacion > fechaInicio) {
+      alert('La fecha de inicio debe ser después de la fecha actual');
+      return;
+    }
     this.setState({
       modalCreateIsOpen: false,
       nombre: '',
@@ -191,6 +167,7 @@ class Events extends Component {
       fechaFin: '',
       presencial: true,
     });
+
     fetch('/events', {
       method: 'POST',
       body: JSON.stringify(event),
@@ -254,7 +231,6 @@ class Events extends Component {
   }
 
   deleteEvent() {
-    /*let newArray = this.state.events.filter((e) => e.nombre !== this.state.currentEvent.nombre)*/
     this.setState({
       modalDetailsIsOpen: false,
     });
@@ -292,12 +268,6 @@ class Events extends Component {
       fechaCreacion: this.state.currentEvent.fechaCreacion,
     };
 
-    /*if(!event.nombre) event.nombre = this.state.currentEvent.nombre;
-    if(!event.lugar) event.lugar = this.state.currentEvent.lugar;
-    if(!event.direccion) event.direccion = this.state.currentEvent.direccion;
-    if(!event.fechaInicio) event.fechaInicio = this.state.currentEvent.fechaInicio;
-    if(!event.fechaFin) event.fechaFin = this.state.currentEvent.fechaFin;*/
-
     this.setState({
       modalDetailsIsOpen: false,
       nombre: '',
@@ -308,7 +278,6 @@ class Events extends Component {
       fechaFin: '',
       presencial: true,
       currentEvent: {},
-      //currentIndex: -1,
       update: false,
     });
 
@@ -499,5 +468,9 @@ class Events extends Component {
     );
   }
 }
+
+Events.propTypes = {
+  user: PropTypes.object.isRequired,
+};
 
 export default Events;

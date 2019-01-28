@@ -31,10 +31,29 @@ class App extends Component {
     });
   }
 
+  handleLogout() {
+    this.setState({
+      view: 'login',
+      user: {},
+    });
+  }
+
+  renderUserOptions() {
+    return(
+      <div className="container">
+        <div className="row">
+          <code>{this.state.user.email}</code><span> {' | '} </span> 
+          <button type="button" className="btn btn-link" onClick={this.handleLogout.bind(this)}>Logout</button> 
+        </div>
+      </div>
+    );
+  }
+
   render() {
     let view = this.state.view === 'events' ? this.renderEvents() : this.renderLogin();
     return (
       <div>
+        {this.state.view === 'events' ? this.renderUserOptions() : <div></div>}
         <div className="row justify-content-center align-self-center">
           <img id="logo-img" src={window.location.origin + "/images/logo-l.png"} alt="ABC Eventos Logo"></img>
         </div>

@@ -137,7 +137,7 @@ class LoginRegister extends Component {
 }
 
 LoginRegister.propTypes = {
-
+  registeredLogged: PropTypes.func.isRequired,
 };
 
 export default LoginRegister;
