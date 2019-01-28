@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const config = require('./config');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var users = require('./routes/users')(app, express);
 
 let events = require('./routes/events')(app, express);
 
@@ -30,7 +30,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/events', events);
 
-mongoose.connect(config.database)
+mongoose.connect(config.database, { useNewUrlParser: true });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -47,7 +47,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  //res.render('error');
 });
 
 module.exports = app;

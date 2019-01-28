@@ -29,6 +29,7 @@ module.exports = (app, express) => {
         event.fechaFin = req.body.fechaFin;
         event.presencial = req.body.presencial;
         event.fechaCreacion = req.body.fechaCreacion;
+        event.user = req.body.user;
         
         event.save((err) => {
             if(err) return res.send(err);

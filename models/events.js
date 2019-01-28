@@ -11,6 +11,7 @@ const EventsSchema = new Schema({
     fechaFin: {type: Date, require: true},
     presencial: {type: Boolean, require: true},
     fechaCreacion: {type: Date, require: true},
+    user: {type: String, require: true},
 });
 
 module.exports = mongoose.model('Events', EventsSchema);

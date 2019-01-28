@@ -8,19 +8,27 @@ class App extends Component {
     super(props);
     this.state = {
       view: 'login',
+      user: {},
     }
   }
 
   renderLogin() {
     return(
-      <LoginRegister />
+      <LoginRegister registeredLogged={this.registeredLogged.bind(this)}/>
     );
   }
 
   renderEvents() {
     return(
-      <Events />
+      <Events user={this.state.user}/>
     );
+  }
+
+  registeredLogged(user) {
+    this.setState({
+      view: 'events',
+      user: user,
+    });
   }
 
   render() {

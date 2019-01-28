@@ -3,12 +3,12 @@ const mongoose =  require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
-const UsersSchema = new mongoose.Schema({
+const UsersSchema = new Schema({
     email: {type: String, unique: true, required: true, trim: true},
     password: {type: String, required: true,},
 });
 
-UsersSchema.statics.authenticate = (email, password, callback) => {
+/*UsersSchema.statics.authenticate = (email, password, callback) => {
     User.findOne({ email: email })
     .exec((err, user) => {
       if (err) {
@@ -26,10 +26,11 @@ UsersSchema.statics.authenticate = (email, password, callback) => {
         }
       })
     });
-  }
+}*/
 
-UsersSchema.pre('save', (next) => {
+/*UsersSchema.pre('save', (next) => {
     var user = this;
+    console.log('user', user);
     bcrypt.hash(user.password, 10, (err, hash) => {
       if (err) {
         return next(err);
@@ -37,6 +38,6 @@ UsersSchema.pre('save', (next) => {
       user.password = hash;
       next();
     });
-});
+});*/
 
 module.exports = mongoose.model('Users', UsersSchema);

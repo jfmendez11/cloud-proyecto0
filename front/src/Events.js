@@ -90,7 +90,7 @@ class Events extends Component {
     })
     .then((json) => {
       this.setState({
-        events: json
+        events: json.filter((e) => e.user === this.props.user._id)
       });
     });
   }
@@ -179,6 +179,7 @@ class Events extends Component {
       fechaFin: this.state.fechaFin,
       presencial: this.state.presencial,
       fechaCreacion: new Date(),
+      user: this.props.user._id,
     };
     this.setState({
       modalCreateIsOpen: false,
